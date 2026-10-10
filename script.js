@@ -31,3 +31,12 @@ document.getElementById('t').onclick=function(){
 };
 })();
 
+
+/* Highlight the nav link of the section on screen */
+(function(){
+if(!('IntersectionObserver' in window))return;
+var links=document.querySelectorAll('nav div a[href^="#"]'),map={};
+links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('on')});map[e.target.id].classList.add('on')}})},{rootMargin:'-45% 0px -50% 0px'});
+Object.keys(map).forEach(function(id){var s=document.getElementById(id);if(s)so.observe(s)});
+})();
